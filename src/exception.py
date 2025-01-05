@@ -1,5 +1,7 @@
 import sys   #provide access to variables and fucntions that strogly interact with the interpreter
-import logging
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))   #interpretor will search in this folder when import is invoked
+from src.logger import logging
 
 #returns custom error message
 def error_message_detail(error, error_detail: sys):
@@ -17,3 +19,11 @@ class CustomException(Exception):
     
     def __str__(self):
         return self.error_message
+
+
+if __name__== '__main__':
+    try:
+        a= 1/0
+    except Exception as e:
+        logging.info('Divide by 0')
+        raise CustomException(e, sys)
